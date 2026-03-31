@@ -247,6 +247,10 @@ describe('Modulo', () => {
     expect(modulo(17, 5)).toBe(2);
   });
 
+  test('5 % 2 should equal 1 (from extended operations image)', () => {
+    expect(modulo(5, 2)).toBe(1);
+  });
+
   test('10 % 3 should equal 1', () => {
     expect(modulo(10, 3)).toBe(1);
   });
@@ -255,8 +259,20 @@ describe('Modulo', () => {
     expect(modulo(20, 5)).toBe(0);
   });
 
+  test('7 % 3 should equal 1', () => {
+    expect(modulo(7, 3)).toBe(1);
+  });
+
   test('negative modulo: -10 % 3 should equal -1', () => {
     expect(modulo(-10, 3)).toBe(-1);
+  });
+
+  test('negative modulo: -17 % 5 should equal -2', () => {
+    expect(modulo(-17, 5)).toBe(-2);
+  });
+
+  test('modulo with same numbers: 5 % 5 should equal 0', () => {
+    expect(modulo(5, 5)).toBe(0);
   });
 
   test('modulo by zero should throw error', () => {
@@ -268,13 +284,29 @@ describe('Modulo', () => {
   test('modulo expression: "17 % 5"', () => {
     expect(calculate('17 % 5')).toBe(2);
   });
+
+  test('modulo expression from image: "5 % 2"', () => {
+    expect(calculate('5 % 2')).toBe(1);
+  });
+
+  test('modulo with decimal divisor: 10.5 % 3 should equal 1.5', () => {
+    expect(modulo(10.5, 3)).toBeCloseTo(1.5);
+  });
+
+  test('zero modulo positive: 0 % 5 should equal 0', () => {
+    expect(modulo(0, 5)).toBe(0);
+  });
+
+  test('large number modulo: 1000000 % 7 should equal 1', () => {
+    expect(modulo(1000000, 7)).toBe(1);
+  });
 });
 
 /**
  * Power/Exponentiation Operation Tests
  */
 describe('Power (Exponentiation)', () => {
-  test('2 ** 3 should equal 8', () => {
+  test('2 ** 3 should equal 8 (from extended operations image)', () => {
     expect(power(2, 3)).toBe(8);
   });
 
@@ -282,32 +314,72 @@ describe('Power (Exponentiation)', () => {
     expect(power(5, 2)).toBe(25);
   });
 
-  test('10 ** 0 should equal 1', () => {
+  test('3 ** 3 should equal 27', () => {
+    expect(power(3, 3)).toBe(27);
+  });
+
+  test('10 ** 0 should equal 1 (any number to power 0)', () => {
     expect(power(10, 0)).toBe(1);
   });
 
-  test('2 ** -1 should equal 0.5', () => {
+  test('2 ** 10 should equal 1024', () => {
+    expect(power(2, 10)).toBe(1024);
+  });
+
+  test('2 ** -1 should equal 0.5 (negative exponent)', () => {
     expect(power(2, -1)).toBe(0.5);
+  });
+
+  test('10 ** -2 should equal 0.01', () => {
+    expect(power(10, -2)).toBe(0.01);
   });
 
   test('negative base with even exponent: (-3) ** 2 should equal 9', () => {
     expect(power(-3, 2)).toBe(9);
   });
 
+  test('negative base with even exponent: (-5) ** 2 should equal 25', () => {
+    expect(power(-5, 2)).toBe(25);
+  });
+
   test('negative base with odd exponent: (-2) ** 3 should equal -8', () => {
     expect(power(-2, 3)).toBe(-8);
+  });
+
+  test('negative base with odd exponent: (-3) ** 3 should equal -27', () => {
+    expect(power(-3, 3)).toBe(-27);
   });
 
   test('power with decimals: 2.5 ** 2 should equal 6.25', () => {
     expect(power(2.5, 2)).toBe(6.25);
   });
 
-  test('power expression: "2 ** 3"', () => {
+  test('fractional exponent: 4 ** 0.5 should equal 2 (square root via power)', () => {
+    expect(power(4, 0.5)).toBe(2);
+  });
+
+  test('zero base: 0 ** 5 should equal 0', () => {
+    expect(power(0, 5)).toBe(0);
+  });
+
+  test('one base: 1 ** 1000 should equal 1', () => {
+    expect(power(1, 1000)).toBe(1);
+  });
+
+  test('power expression: "2 ** 3" from image', () => {
     expect(calculate('2 ** 3')).toBe(8);
   });
 
   test('power expression: "10 ** 2"', () => {
     expect(calculate('10 ** 2')).toBe(100);
+  });
+
+  test('power expression: "5 ** 3"', () => {
+    expect(calculate('5 ** 3')).toBe(125);
+  });
+
+  test('power with negative exponent: "2 ** -3"', () => {
+    expect(calculate('2 ** -3')).toBe(0.125);
   });
 });
 
@@ -315,12 +387,24 @@ describe('Power (Exponentiation)', () => {
  * Square Root Operation Tests
  */
 describe('Square Root', () => {
-  test('sqrt(16) should equal 4', () => {
+  test('sqrt(16) should equal 4 (from extended operations image)', () => {
     expect(squareRoot(16)).toBe(4);
   });
 
   test('sqrt(25) should equal 5', () => {
     expect(squareRoot(25)).toBe(5);
+  });
+
+  test('sqrt(36) should equal 6', () => {
+    expect(squareRoot(36)).toBe(6);
+  });
+
+  test('sqrt(100) should equal 10', () => {
+    expect(squareRoot(100)).toBe(10);
+  });
+
+  test('sqrt(144) should equal 12', () => {
+    expect(squareRoot(144)).toBe(12);
   });
 
   test('sqrt(0) should equal 0', () => {
@@ -335,23 +419,51 @@ describe('Square Root', () => {
     expect(squareRoot(2)).toBeCloseTo(1.414, 3);
   });
 
+  test('sqrt(3) should be approximately 1.732', () => {
+    expect(squareRoot(3)).toBeCloseTo(1.732, 3);
+  });
+
   test('sqrt(0.25) should equal 0.5', () => {
     expect(squareRoot(0.25)).toBe(0.5);
   });
 
-  test('sqrt of negative number should throw error', () => {
+  test('sqrt(0.01) should equal 0.1', () => {
+    expect(squareRoot(0.01)).toBe(0.1);
+  });
+
+  test('sqrt(0.5) should be approximately 0.707', () => {
+    expect(squareRoot(0.5)).toBeCloseTo(0.707, 3);
+  });
+
+  test('sqrt(10000) should equal 100', () => {
+    expect(squareRoot(10000)).toBe(100);
+  });
+
+  test('sqrt of negative number (-4) should throw error', () => {
     expect(() => {
       squareRoot(-4);
     }).toThrow('Cannot calculate square root of a negative number');
   });
 
-  test('sqrt of negative number should throw error', () => {
+  test('sqrt of negative number (-16) should throw error', () => {
     expect(() => {
       squareRoot(-16);
     }).toThrow('Cannot calculate square root of a negative number');
   });
 
-  test('sqrt expression: "sqrt 16"', () => {
+  test('sqrt of negative number (-1) should throw error', () => {
+    expect(() => {
+      squareRoot(-1);
+    }).toThrow('Cannot calculate square root of a negative number');
+  });
+
+  test('sqrt of large negative number should throw error', () => {
+    expect(() => {
+      squareRoot(-1000);
+    }).toThrow('Cannot calculate square root of a negative number');
+  });
+
+  test('sqrt expression: "sqrt 16" from image', () => {
     expect(calculate('sqrt 16')).toBe(4);
   });
 
@@ -359,9 +471,39 @@ describe('Square Root', () => {
     expect(calculate('sqrt 25')).toBe(5);
   });
 
-  test('sqrt expression with negative should throw error', () => {
+  test('sqrt expression: "sqrt 100"', () => {
+    expect(calculate('sqrt 100')).toBe(10);
+  });
+
+  test('sqrt expression: "sqrt 2"', () => {
+    expect(calculate('sqrt 2')).toBeCloseTo(1.414, 3);
+  });
+
+  test('sqrt expression with negative should throw error: "sqrt -4"', () => {
     expect(() => {
       calculate('sqrt -4');
     }).toThrow('Cannot calculate square root of a negative number');
+  });
+
+  test('sqrt expression with negative should throw error: "sqrt -25"', () => {
+    expect(() => {
+      calculate('sqrt -25');
+    }).toThrow('Cannot calculate square root of a negative number');
+  });
+
+  test('sqrt of perfect squares (9)', () => {
+    expect(squareRoot(9)).toBe(3);
+  });
+
+  test('sqrt of perfect squares (49)', () => {
+    expect(squareRoot(49)).toBe(7);
+  });
+
+  test('sqrt of perfect squares (64)', () => {
+    expect(squareRoot(64)).toBe(8);
+  });
+
+  test('sqrt of very small positive number', () => {
+    expect(squareRoot(0.0001)).toBe(0.01);
   });
 });
