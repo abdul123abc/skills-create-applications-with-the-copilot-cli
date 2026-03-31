@@ -1,4 +1,4 @@
-const { add, subtract, multiply, divide, calculate } = require('../calculator');
+const { add, subtract, multiply, divide, modulo, power, squareRoot, calculate } = require('../calculator');
 
 /**
  * Addition Tests
@@ -177,16 +177,20 @@ describe('Calculate Function (Expression Parser)', () => {
     }).toThrow('Division by zero is not allowed');
   });
 
+  test('modulo operation: "17 % 5"', () => {
+    expect(calculate('17 % 5')).toBe(2);
+  });
+
   test('invalid operator should throw error', () => {
     expect(() => {
-      calculate('5 % 3');
-    }).toThrow('Unknown operator: %');
+      calculate('5 ^ 3');
+    }).toThrow('Unknown operator: ^');
   });
 
   test('invalid expression format (missing operator) should throw error', () => {
     expect(() => {
       calculate('5 3');
-    }).toThrow('Invalid expression format');
+    }).toThrow('Unknown unary operator');
   });
 
   test('invalid expression format (too many operands) should throw error', () => {
@@ -232,5 +236,132 @@ describe('Edge Cases', () => {
 
   test('division of negative by negative', () => {
     expect(calculate('-20 / -5')).toBe(4);
+  });
+});
+
+/**
+ * Modulo Operation Tests
+ */
+describe('Modulo', () => {
+  test('17 % 5 should equal 2', () => {
+    expect(modulo(17, 5)).toBe(2);
+  });
+
+  test('10 % 3 should equal 1', () => {
+    expect(modulo(10, 3)).toBe(1);
+  });
+
+  test('20 % 5 should equal 0', () => {
+    expect(modulo(20, 5)).toBe(0);
+  });
+
+  test('negative modulo: -10 % 3 should equal -1', () => {
+    expect(modulo(-10, 3)).toBe(-1);
+  });
+
+  test('modulo by zero should throw error', () => {
+    expect(() => {
+      modulo(10, 0);
+    }).toThrow('Division by zero is not allowed');
+  });
+
+  test('modulo expression: "17 % 5"', () => {
+    expect(calculate('17 % 5')).toBe(2);
+  });
+});
+
+/**
+ * Power/Exponentiation Operation Tests
+ */
+describe('Power (Exponentiation)', () => {
+  test('2 ** 3 should equal 8', () => {
+    expect(power(2, 3)).toBe(8);
+  });
+
+  test('5 ** 2 should equal 25', () => {
+    expect(power(5, 2)).toBe(25);
+  });
+
+  test('10 ** 0 should equal 1', () => {
+    expect(power(10, 0)).toBe(1);
+  });
+
+  test('2 ** -1 should equal 0.5', () => {
+    expect(power(2, -1)).toBe(0.5);
+  });
+
+  test('negative base with even exponent: (-3) ** 2 should equal 9', () => {
+    expect(power(-3, 2)).toBe(9);
+  });
+
+  test('negative base with odd exponent: (-2) ** 3 should equal -8', () => {
+    expect(power(-2, 3)).toBe(-8);
+  });
+
+  test('power with decimals: 2.5 ** 2 should equal 6.25', () => {
+    expect(power(2.5, 2)).toBe(6.25);
+  });
+
+  test('power expression: "2 ** 3"', () => {
+    expect(calculate('2 ** 3')).toBe(8);
+  });
+
+  test('power expression: "10 ** 2"', () => {
+    expect(calculate('10 ** 2')).toBe(100);
+  });
+});
+
+/**
+ * Square Root Operation Tests
+ */
+describe('Square Root', () => {
+  test('sqrt(16) should equal 4', () => {
+    expect(squareRoot(16)).toBe(4);
+  });
+
+  test('sqrt(25) should equal 5', () => {
+    expect(squareRoot(25)).toBe(5);
+  });
+
+  test('sqrt(0) should equal 0', () => {
+    expect(squareRoot(0)).toBe(0);
+  });
+
+  test('sqrt(1) should equal 1', () => {
+    expect(squareRoot(1)).toBe(1);
+  });
+
+  test('sqrt(2) should be approximately 1.414', () => {
+    expect(squareRoot(2)).toBeCloseTo(1.414, 3);
+  });
+
+  test('sqrt(0.25) should equal 0.5', () => {
+    expect(squareRoot(0.25)).toBe(0.5);
+  });
+
+  test('sqrt of negative number should throw error', () => {
+    expect(() => {
+      squareRoot(-4);
+    }).toThrow('Cannot calculate square root of a negative number');
+  });
+
+  test('sqrt of negative number should throw error', () => {
+    expect(() => {
+      squareRoot(-16);
+    }).toThrow('Cannot calculate square root of a negative number');
+  });
+
+  test('sqrt expression: "sqrt 16"', () => {
+    expect(calculate('sqrt 16')).toBe(4);
+  });
+
+  test('sqrt expression: "sqrt 25"', () => {
+    expect(calculate('sqrt 25')).toBe(5);
+  });
+
+  test('sqrt expression with negative should throw error', () => {
+    expect(() => {
+      calculate('sqrt -4');
+    }).toThrow('Cannot calculate square root of a negative number');
   });
 });
